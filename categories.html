@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+  categories.html —— 分类总览页（当前被"合并"，直接跳转）
+
+  现状：这个页面已经被合并进 articles.html，所以整页只做一件事——
+        用 <meta http-equiv="refresh"> 立刻跳转到 ./articles.html。
+
+  关于 taxonomies.js：
+    assets/js/pages/taxonomies.js 本来是给本页（以及 tags.html）用的，
+    会读取 <body data-page="categories"> 生成分类卡片。
+    现在没有任何 HTML 引用它，属于"保留但未被引用"的备用代码
+    （README 里把「独立分类/标签页」归为已舍弃的能力）。
+    若要恢复本页：把 body 改成带 data-page="categories" 的常规结构，
+    加上 <script type="module" src="./assets/js/pages/taxonomies.js"> 即可，
+    JS 那边已经写好了分支。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <!-- content="0; url=..."：0 秒后立即跳转。保留 <a> 是为了 refresh 被禁用时仍有出路 -->
+  <meta http-equiv="refresh" content="0; url=./articles.html" />
+  <title>已合并到文章</title>
+</head>
+<body>
+  <p><a href="./articles.html">前往文章</a></p>
+</body>
+</html>

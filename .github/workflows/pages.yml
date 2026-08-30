@@ -1,0 +1,56 @@
+# GitHub Actions 工作流：把整个仓库发布到 GitHub Pages
+#
+# 可选。若你更习惯「分支直接发布」，可不用本文件：
+# Settings → Pages → Deploy from a branch → main / root
+#
+# 两种发布方式的区别：
+#   · 分支发布：GitHub 直接把 main 分支的文件当静态站点，零配置，但不能跑构建步骤
+#   · Actions  发布（本文件）：走 CI，将来想加「压缩图片 / 生成索引 / npm build」就有地方放
+# 本项目是纯静态、无构建，所以两者效果一样，任选其一即可。
+
+name: Deploy GitHub Pages
+
+# ── 触发时机 ──
+on:
+  push:
+    branches: [main]     # 推到 main 分支时自动部署
+  workflow_dispatch:      # 允许在 Actions 页面手动点「Run workflow」触发
+
+# ── 最小权限原则：只给这次运行必需的权限 ──
+permissions:
+  contents: read         # 读仓库代码
+  pages: write           # 写 Pages
+  id-token: write        # 换取部署用的 OIDC 令牌（GitHub 推荐方式，不用手动配 secret）
+
+# ── 并发控制 ──
+# group: pages 把同一个 Pages 的所有部署归到一组；
+# cancel-in-progress: true 表示连续推送时取消上一次未完成的部署，只保留最新的。
+# ⚠️ 如果不加，连续快推会产生排队，出现"我推了新版但线上还是旧的"的错觉。
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # environment 里带上 url，Actions 页面会直接显示线上地址，不用去 Settings 里翻
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      # 1. 拉代码
+      - uses: actions/checkout@v4
+
+      # 2. 把 path 指定的目录打包成 Pages 制品。
+      #    path: . 表示"整个仓库根目录" —— 所以 README、.github 也会被传上去（无害）。
+      #    若只想发布部分文件，改成具体目录（如 ./dist），但那样 index.html 也必须在该目录里。
+      #    ⚠️ 纯静态站不需要 npm install / npm run build，所以这里没有构建步骤，
+      #       这也是"无构建"带来的最大好处：部署只要十几秒。
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      # 3. 真正发布。id: deploy 让上面的 steps.deploy.outputs.page_url 能取到地址
+      - id: deploy
+        uses: actions/deploy-pages@v4

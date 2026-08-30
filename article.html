@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+  article.html —— 文章详情页
+
+  这是一个"空壳页面"：整个正文区域只有 #article-root 一个 div，
+  文章不存在时的提示、目录、信息卡、Markdown 正文、相关文章，
+  全部由 article.js 拼好 HTML 后一次性塞进去。
+
+  地址格式：article.html?slug=文章slug
+    slug 对应 content/articles.json 里的 slug 字段；
+    查不到（未发布 / 拼错）时，页面会显示"文章不存在或尚未发布"。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文章详情 · Tech Blog</title>
+  <!-- 标题会在 JS 加载后被改成「文章标题 · 站名」，这里只是首屏的占位 -->
+  <link rel="icon" href="./assets/svg/favicon.svg" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <script type="module" src="./assets/js/pages/article.js"></script>
+</head>
+<!-- data-page 是 "articles"：让导航栏的「文章」项在详情页也保持高亮 -->
+<body data-page="articles">
+  <header class="top-nav"></header>
+  <!-- 唯一的内容挂载点，见 article.js 的 $("#article-root").innerHTML = ... -->
+  <main class="shell page" id="article-root"></main>
+  <footer class="site-footer"></footer>
+</body>
+</html>

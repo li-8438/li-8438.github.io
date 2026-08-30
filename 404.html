@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+  404.html —— GitHub Pages 的"页面不存在"兜底页
+
+  为什么这个文件能生效：GitHub Pages 在找不到对应路径时，会自动返回仓库根目录的 404.html。
+  ⚠️ 只对"自定义域名"以外的默认域名保证生效；另外注意它不能放在子目录里。
+
+  这个页面刻意做得最简单：不加载任何页面 JS（不调用 mountChrome），
+  所以没有导航栏和页脚 —— 出错时依赖越少越好，避免"404 页面自己也 404"。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>页面不存在 · Tech Blog</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+</head>
+<body>
+  <!-- 没有 <header class="top-nav">：chrome.js 找不到该元素时会直接 return，不会报错 -->
+  <main class="shell page">
+    <div class="empty glass">
+      <h1>404</h1>
+      <p>这个页面不存在。</p>
+      <p><a class="text-link" href="./index.html">返回首页</a></p>
+    </div>
+  </main>
+</body>
+</html>

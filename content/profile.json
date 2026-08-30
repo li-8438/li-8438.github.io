@@ -1,0 +1,33 @@
+{
+  "name": "Tech Blog",
+  "headline": "全栈开发工程师 | 技术架构师 | 大模型探索者",
+  "bio": "热爱技术，专注于全栈开发和大模型工程化实践。喜欢探索新技术并分享技术思考和实践经验。",
+  "location": "中国 · 北京",
+  "email": "hello@example.com",
+  "links": [
+    { "label": "GitHub", "href": "https://github.com" },
+    { "label": "Email", "href": "mailto:hello@example.com" }
+  ],
+  "stack": ["Python", "FastAPI", "React", "TypeScript", "Docker", "Kubernetes", "AWS", "PostgreSQL", "Redis", "LLM"],
+  "experience": [
+    {
+      "title": "高级软件工程师",
+      "org": "Tech Company",
+      "period": "2022.01 — 至今",
+      "desc": "负责大模型平台架构设计与开发，带领团队完成多个 AI 项目的落地实施。"
+    },
+    {
+      "title": "软件工程师",
+      "org": "Another Company",
+      "period": "2019.06 — 2021.12",
+      "desc": "参与后端服务开发，负责系统架构设计和核心功能实现。"
+    }
+  ],
+  "education": [
+    {
+      "school": "示例大学",
+      "major": "计算机科学与技术",
+      "period": "2015 — 2019"
+    }
+  ]
+}

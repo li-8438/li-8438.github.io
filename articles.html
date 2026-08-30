@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+  articles.html —— 文章列表 / 归档页
+
+  页面状态全部来自 URL 查询串，由 articles.js 读取：
+    ?section=学习笔记              某栏目下的全部文章
+    ?section=学习笔记&topic=LLM 应用  某分类下的文章
+    &subtopic=RAG                  再细一层
+    &q=关键词                      叠加关键词筛选
+
+  结构：左 250px 分类侧栏（#article-side，由 JS 遍历分类树生成）
+        + 右侧列表头（标题 / 篇数 / 搜索框）+ 卡片网格（#article-list）
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文章 · Tech Blog</title>
+  <link rel="icon" href="./assets/svg/favicon.svg" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <script type="module" src="./assets/js/pages/articles.js"></script>
+</head>
+<body data-page="articles">
+  <header class="top-nav"></header>
+
+  <!-- .articles-shell 是 CSS Grid 两栏容器；.page 提供上下留白 -->
+  <main class="shell page articles-shell">
+    <!-- 左侧分类树：内容由 articles.js 的 renderSide() 生成，每项自带文章数 -->
+    <aside class="article-side glass" id="article-side"></aside>
+
+    <section>
+      <div class="list-head">
+        <div>
+          <!-- 标题显示当前分类名，没筛选时是「全部文章」 -->
+          <h1 id="list-heading">全部文章</h1>
+          <p class="page-lead" id="list-count"></p>
+        </div>
+        <!-- 搜索框：输入即筛选当前分类下的文章（不跳页、不请求网络） -->
+        <input class="search-field" id="list-search" type="search" placeholder="筛选当前列表…" />
+      </div>
+      <!-- .article-grid-2 把默认 4 列改成 2 列，卡片更宽、摘要看得更全 -->
+      <div class="article-grid article-grid-2" id="article-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+</body>
+</html>

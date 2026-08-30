@@ -1,0 +1,13 @@
+{
+  "featured": [
+    "llm-engineering-guide",
+    "fastapi-production-architecture",
+    "docker-compose-production",
+    "static-site-github-pages"
+  ],
+  "now": {
+    "title": "现在在写什么",
+    "text": "这阵子主要在把 RAG 从「能跑」做成「可评估」：检索是否找得准、回答能不能回溯到原文，以及什么时候不该上 Agent。学习笔记写具体做法，行业思考写取舍。",
+    "topics": ["RAG 评估", "Agent 边界", "数据架构"]
+  }
+}

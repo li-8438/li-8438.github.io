@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+  about.html —— 关于我
+
+  同样是空壳页面：整个内容由 about.js 读取 content/profile.json 后渲染。
+  想改头像、简介、技术栈、工作经历、教育背景，改 JSON 即可，不用碰 HTML/JS。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>关于我 · Tech Blog</title>
+  <link rel="icon" href="./assets/svg/favicon.svg" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <script type="module" src="./assets/js/pages/about.js"></script>
+</head>
+<body data-page="about">
+  <header class="top-nav"></header>
+  <!-- 名片 / 技术栈 / 工作经历 / 教育背景 四个区块都插在这里 -->
+  <main class="shell page" id="about-root"></main>
+  <footer class="site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "articles": [
+    {
+      "slug": "llm-engineering-guide",
+      "title": "大模型工程化落地实践指南",
+      "summary": "从模型选型、数据准备到部署与降级，讨论大模型从 Demo 走到生产时真正要处理的问题。",
+      "section": "行业思考",
+      "topic": "AI 落地",
+      "subtopic": "能力边界",
+      "tags": ["LLM", "工程化", "AI"],
+      "date": "2024-05-20",
+      "published": true,
+      "diagram": "llm-arch",
+      "file": "articles/llm-engineering-guide.md"
+    },
+    {
+      "slug": "docker-compose-production",
+      "title": "Docker 容器化部署最佳实践",
+      "summary": "用多阶段构建、数据卷和环境变量，把全栈项目收成可重复部署的单元。",
+      "section": "行业思考",
+      "topic": "架构与选型",
+      "subtopic": "部署与成本",
+      "tags": ["Docker", "部署"],
+      "date": "2024-05-15",
+      "published": true,
+      "file": "articles/docker-compose-production.md"
+    },
+    {
+      "slug": "react-next-performance",
+      "title": "React 性能优化之路",
+      "summary": "从缩小客户端边界到静态资源策略，整理前端性能里更值得先做的事。",
+      "section": "行业思考",
+      "topic": "行业与职业",
+      "subtopic": "工作方法",
+      "tags": ["React", "性能"],
+      "date": "2024-05-12",
+      "published": true,
+      "file": "articles/react-next-performance.md"
+    },
+    {
+      "slug": "fastapi-production-architecture",
+      "title": "FastAPI 高性能架构实践",
+      "summary": "用分层、配置前置和仓储边界，把 FastAPI 项目收成可维护的 Python 服务。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": ["Python", "FastAPI"],
+      "date": "2024-05-18",
+      "published": true,
+      "file": "articles/fastapi-production-architecture.md"
+    },
+    {
+      "slug": "static-site-github-pages",
+      "title": "用 GitHub Pages 发布模块化静态博客",
+      "summary": "不依赖后端和数据库，用 Markdown 与静态资源把博客发布到 Pages。",
+      "section": "行业思考",
+      "topic": "架构与选型",
+      "subtopic": "部署与成本",
+      "tags": ["GitHub Pages", "静态站"],
+      "date": "2024-06-02",
+      "published": true,
+      "file": "articles/static-site-github-pages.md"
+    },
+    {
+      "slug": "sqlite-to-postgres-notes",
+      "title": "从 SQLite 到 PostgreSQL 的取舍",
+      "summary": "个人项目何时该坚持零配置数据库，何时值得迁到 Postgres。",
+      "section": "行业思考",
+      "topic": "架构与选型",
+      "subtopic": "数据架构",
+      "tags": ["SQLite", "PostgreSQL"],
+      "date": "2024-05-08",
+      "published": true,
+      "file": "articles/sqlite-to-postgres-notes.md"
+    }
+  ]
+}

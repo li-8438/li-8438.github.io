@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+  index.html —— 首页
+
+  这个项目的 HTML 都是"骨架 + 挂载点"：
+    · <header class="top-nav">  留空，由 chrome.js 的 mountChrome() 注入导航
+    · <footer class="site-footer"> 同上，注入页脚
+    · 内容区的 id 是给对应页面 JS 用的锚点（如 #featured-grid）
+
+  三个必须知道的点：
+    1. <body data-page="home"> 是本页的"身份标识"。
+       chrome.js 拿它决定哪个导航项高亮；taxonomies.js 靠它区分分类页/标签页。
+    2. <script type="module"> 是必需的：页面 JS 用了 import 和顶层 await，
+       普通 <script> 会直接语法报错。module 脚本默认 defer，不阻塞 HTML 解析。
+    3. ⚠️ 页面用 fetch 读 content/*.json，所以不能用 file:// 双击打开
+       （会被浏览器的同源策略拦住）。必须起本地服务：python -m http.server 4173
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 移动端适配：不加这行，手机上会按 980px 的宽度缩放显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Blog · 探索技术边界</title>
+  <meta name="description" content="学习笔记与行业思考。记录具体做法，也记录取舍。" />
+  <link rel="icon" href="./assets/svg/favicon.svg" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <!-- 首页入口脚本：注入导航/页脚 + 渲染精选文章与「现在在写什么」 -->
+  <script type="module" src="./assets/js/pages/home.js"></script>
+</head>
+<body data-page="home">
+  <!-- 空容器，内容由 chrome.js 填充（详见文件头说明） -->
+  <header class="top-nav"></header>
+
+  <main>
+    <!-- ── Hero：标题 + 两个行动按钮 + 右侧插画 ── -->
+    <section class="shell hero">
+      <div>
+        <h1>探索技术边界<br /><span class="gradient-text">构建无限可能</span></h1>
+        <p>这里分成两件事：学习笔记写具体做法，行业思考写判断和取舍。</p>
+        <div class="hero-actions">
+          <!-- href 先写相对路径，保证 JS 未加载时也能跳转；JS 会用 withBase() 覆盖成带前缀的绝对路径 -->
+          <a class="primary-btn" id="browse-link" href="./articles.html">浏览文章</a>
+          <a class="ghost-btn" id="about-link" href="./about.html">关于我</a>
+        </div>
+      </div>
+      <!-- 纯装饰：底图由 CSS 的 .desk 用 hero-desk.svg 渲染；aria-hidden 让读屏软件跳过 -->
+      <div class="hero-art" aria-hidden="true"><div class="desk"></div></div>
+    </section>
+
+    <!-- ── 双入口：两个栏目各一张卡片，链接会带 section 参数跳到列表页 ── -->
+    <section class="shell path-grid">
+      <a class="path-card glass" id="path-notes" href="./articles.html">
+        <small>NOTES</small>
+        <strong>学习笔记</strong>
+        <span>Python、数据与存储、模型基础、LLM 应用。把做过的事情写成能回头查的记录。</span>
+      </a>
+      <a class="path-card glass" id="path-essays" href="./articles.html">
+        <small>ESSAYS</small>
+        <strong>行业思考</strong>
+        <span>架构与选型、AI 落地、行业与职业。写为什么这样做，以及什么时候不该做。</span>
+      </a>
+    </section>
+
+    <!-- ── 精选文章：卡片由 home.js 按 site.json 里的 featured（4 个 slug）渲染 ── -->
+    <section class="shell section">
+      <div class="section-head">
+        <h2>精选文章</h2>
+        <a class="text-link" id="view-all" href="./articles.html">查看全部 →</a>
+      </div>
+      <div class="article-grid" id="featured-grid"></div>
+    </section>
+
+    <!-- ── 「现在在写什么」：标题、正文、话题胶囊都来自 site.json 的 now 字段 ── -->
+    <section class="shell now-block glass">
+      <div>
+        <h2 id="now-title">现在在写什么</h2>
+        <p id="now-text"></p>
+        <div class="skill-pills" id="now-topics"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+</body>
+</html>

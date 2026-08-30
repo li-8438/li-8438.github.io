@@ -1,0 +1,528 @@
+/* ============================================================================
+   main.css —— 全站唯一样式表
+
+   整体结构（从上到下）：
+     0. 设计令牌：CSS 变量 + 深浅两套主题
+     1. 基础重置与通用工具类
+     2. 外壳：顶部导航 / 页脚
+     3. 按钮与表单控件
+     4. 首页：Hero / 双入口 / 精选 / 现在在写什么
+     5. 文章列表页：侧栏 + 卡片网格
+     6. 文章详情页：目录 / 信息卡 / 正文排版 / 架构图 / 阅读进度
+     7. 关于我页：名片 / 技术栈 / 时间线
+     8. 分类标签页
+     9. 搜索弹层
+    10. 响应式断点
+
+   学习要点：
+     1. 主题靠"变量覆盖"而非"重复写两套样式"：:root 定义一批变量，
+        :root[data-theme="dark"] 只覆盖变量值，下面几百行组件样式一行都不用改。
+        JS 只需切一个属性（见 theme.js）。
+     2. color-mix(in srgb, var(--panel) 88%, transparent) 用来做毛玻璃：
+        面板色带着一点透明度，配合 backdrop-filter: blur() 就有玻璃质感。
+        ⚠️ 这两条要成对出现，少了 backdrop-filter 就是半透明色块，少了透明度则看不出模糊。
+     3. 布局几乎全用 CSS Grid + gap，不写 margin 负值、不用浮动；
+        响应式靠改 grid-template-columns 的列数，比改宽度可靠得多。
+     4. clamp(最小值, 理想值, 最大值) 做流式字号：40px~64px 之间随视口宽度变化，
+        省掉两三个断点（Hero 标题就是这么做的）。
+   ============================================================================ */
+
+
+/* ============================================================================
+   0. 设计令牌（Design Tokens）
+   ============================================================================ */
+
+/* 浅色主题（默认）。color-scheme 告诉浏览器：滚动条、表单控件也用浅色配色。 */
+:root {
+  color-scheme: light;
+  --bg: #f5f8fb;         /* 页面底色 */
+  --bg-2: #eef6f8;       /* 次级底色（用于渐变过渡） */
+  --panel: #ffffff;      /* 卡片/面板底色 */
+  --text: #123047;       /* 主文字 */
+  --muted: #6b8090;      /* 次要文字（说明、日期、元信息） */
+  --line: rgba(16, 74, 92, 0.1);   /* 描边：用半透明色，深浅主题下都能融进背景 */
+  --blue: #1677c8;       /* 品牌蓝 */
+  --teal: #0b9aa8;       /* 品牌青绿（主强调色，链接、高亮都用它） */
+  --green: #12a87a;      /* 品牌绿（渐变的收尾色） */
+  --navy: #0f3a4d;       /* 深蓝，用于 hover / active 状态 */
+  --shadow: 0 16px 40px rgba(20, 72, 90, 0.08);   /* 卡片阴影 */
+  --radius: 16px;        /* 卡片圆角基准 */
+  --nav-h: 64px;         /* 导航栏高度：吸顶导航、目录吸顶、进度条都要引用它 */
+}
+
+/* 深色主题：只覆盖变量，不重复任何组件规则。
+   由 theme.js 把 data-theme="dark" 写到 <html> 上生效。 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #07141c;
+  --bg-2: #0b1c26;
+  --panel: #10222d;
+  --text: #e8f4f7;
+  --muted: #8aa0ad;
+  --line: rgba(160, 210, 220, 0.12);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);   /* 深色下阴影要更重才有层次 */
+}
+
+
+/* ============================================================================
+   1. 基础重置与通用工具类
+   ============================================================================ */
+
+/* border-box：让 width 包含 padding 和 border，算尺寸时不用做加减法 */
+* { box-sizing: border-box; }
+
+/* 平滑滚动：配合侧栏目录的 #锚点 跳转，滚动到目标时是滑动而不是瞬移 */
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  /* 中文字体放前面：先找 PingFang / Noto，都没有再退回系统默认 */
+  font-family: Inter, "PingFang SC", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  /* 三层背景：两个径向渐变做"光晕"，一层线性渐变做整体底色 */
+  background:
+    radial-gradient(circle at 78% 0, rgba(18, 168, 162, 0.08), transparent 28%),
+    radial-gradient(circle at 8% 16%, rgba(22, 119, 200, 0.07), transparent 24%),
+    linear-gradient(180deg, #fbfdfe 0%, var(--bg) 48%, #f7fbfc 100%);
+}
+
+/* 深色下背景要单独覆盖：浅色的三层渐变在深色模式里会显得脏 */
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 78% 0, rgba(18, 168, 162, 0.12), transparent 28%),
+    linear-gradient(180deg, #07141c, #0a1a24);
+}
+
+/* 全局去掉链接下划线并继承颜色，具体颜色由组件自己定 */
+a { color: inherit; text-decoration: none; }
+
+/* 表单元素默认不继承字体，必须显式写 font: inherit */
+button, input { font: inherit; }
+
+/* .shell 是"内容容器"：min(1180px, 100% - 40px) 保证窄屏时左右各留 20px 白边 */
+.shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+/* 毛玻璃卡片（全站最复用的一個 class） */
+.glass {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);   /* 关键：模糊卡片背后的内容 */
+}
+
+/* 渐变文字：背景裁切成文字形状 + 文字设为透明，得到"彩色字"效果 */
+.gradient-text {
+  background: linear-gradient(90deg, var(--blue), var(--teal) 48%, var(--green));
+  -webkit-background-clip: text;   /* 保留 -webkit- 前缀：Safari 需要 */
+  background-clip: text;
+  color: transparent;
+}
+
+.muted { color: var(--muted); }
+
+
+/* ============================================================================
+   2. 外壳：顶部导航 / 页脚
+   ============================================================================ */
+
+.top-nav {
+  position: sticky;   /* 吸顶：滚动时始终可见 */
+  top: 0;
+  z-index: 40;        /* 高于内容、低于搜索弹层（80）和阅读进度条（50） */
+  height: var(--nav-h);
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);   /* 导航的模糊比卡片更强，因为背后内容会快速掠过 */
+}
+
+/* 导航内部：flex 横向排布，.nav-actions 用 margin-left:auto 顶到最右 */
+.nav-inner { height: var(--nav-h); display: flex; align-items: center; gap: 24px; }
+
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--teal); }
+
+/* 品牌小方块：display:grid + place-items:center 是"单行居中"的最短写法 */
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: #eefafb; border: 1px solid rgba(11, 154, 168, 0.25);
+}
+.brand-mark i { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(135deg, var(--blue), var(--green)); }
+
+.nav-links { display: flex; gap: 22px; margin-left: 18px; color: var(--muted); font-size: 14px; }
+.nav-link { position: relative; padding: 20px 0; }   /* position:relative 给下面的 ::after 当定位锚点 */
+.nav-link.is-active, .nav-link:hover { color: var(--navy); }
+:root[data-theme="dark"] .nav-link.is-active, :root[data-theme="dark"] .nav-link:hover { color: #fff; }
+
+/* 当前页的下划线：用伪元素画一条渐变条，贴在这条链接的底部 */
+.nav-link.is-active:after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--green));
+}
+
+.nav-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+/* 搜索入口胶囊（窄屏下 CSS 会隐藏里面的文字和 ⌘K） */
+.search-chip {
+  display: flex; align-items: center; gap: 18px;
+  height: 36px; padding: 0 12px 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: #f7fbfc; color: var(--muted); cursor: pointer;
+}
+:root[data-theme="dark"] .search-chip { background: #0d1c25; }
+.search-chip kbd {
+  font-size: 11px; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; background: #fff;
+}
+
+
+/* ============================================================================
+   3. 按钮与表单控件
+   ============================================================================ */
+
+/* 所有按钮类共用一套描边/底色/字色，下面只改尺寸和圆角 */
+.icon-btn, .admin-chip, .ghost-btn, .primary-btn, .share-btn, .filter-chip {
+  border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer;
+}
+.icon-btn { width: 36px; height: 36px; border-radius: 10px; }   /* 正方形图标按钮（主题开关、关闭搜索） */
+
+.admin-chip, .ghost-btn, .primary-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 36px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
+}
+.admin-chip, .primary-btn {
+  color: #fff; border-color: transparent;
+  background: linear-gradient(105deg, #0b7fb8, #0aa3a0);   /* 主按钮：蓝→青渐变 */
+}
+
+.hero-actions { display: flex; gap: 10px; margin-top: 26px; }
+.primary-btn { height: 42px; padding: 0 18px; }   /* Hero 区按钮比导航里的更高一点 */
+.ghost-btn { height: 42px; padding: 0 18px; }
+
+
+/* ============================================================================
+   4. 首页
+   ============================================================================ */
+
+/* Hero：左右两栏，比例 1.05 : 0.95（文字略宽一点） */
+.hero {
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: 28px;
+  align-items: center; padding: 42px 0 18px;
+}
+/* 流式字号：视口宽时 64px，窄时 40px，中间按 5vw 变化 */
+.hero h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.08; letter-spacing: -0.04em; margin: 0 0 16px; }
+.hero p { max-width: 520px; color: var(--muted); line-height: 1.8; margin: 0; }
+
+/* Hero 右侧装饰区：底图 hero-desk.svg 由 .desk 负责渲染 */
+.hero-art {
+  min-height: 360px; position: relative;   /* 给 .desk 的 absolute 当定位父级 */
+  background:
+    radial-gradient(circle at 60% 40%, rgba(18,168,162,.12), transparent 42%),
+    linear-gradient(180deg, transparent, rgba(22,119,200,.03));
+}
+.desk {
+  position: absolute; inset: 24px 8px 18px;   /* inset = top/right/bottom/left 的简写 */
+  background: url("../svg/hero-desk.svg") center / contain no-repeat;   /* contain：完整显示、不变形 */
+}
+
+/* 统计卡片（4 列）。当前首页没用到，保留备用 */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 10px 0 28px; }
+.stat-card { border-radius: 16px; padding: 18px 20px; }
+.stat-card span { color: var(--muted); font-size: 13px; }
+.stat-card strong { display: block; font-size: 28px; margin-top: 8px; }
+
+/* 区块：标题 + "查看全部" 右对齐。align-items:end 让标题和链接底部对齐 */
+.section { padding: 12px 0 36px; }
+.section-head, .list-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 16px; }
+.section-head h2, .list-head h1 { margin: 0; font-size: 24px; }
+.text-link { color: var(--muted); font-size: 14px; }
+.text-link:hover { color: var(--teal); }
+
+/* 文章卡片网格：默认 4 列，文章列表页用 .article-grid-2 改成 2 列 */
+.article-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.article-card { border-radius: 16px; overflow: hidden; transition: .22s ease; color: inherit; }
+/* 悬浮微抬升：translateY 是 GPU 合成属性，比改 margin/top 更流畅 */
+.article-card:hover { transform: translateY(-4px); border-color: rgba(11,154,168,.28); }
+
+.article-cover { height: 148px; position: relative; overflow: hidden; background: #0d3148; }
+.cover-art { position: absolute; inset: 0; opacity: .9; }
+
+/* 六种封面配色，由 chrome.js 的 coverVariant() 决定用哪一个。
+   写法都是"几个径向渐变画光点 + 一个线性渐变打底"，纯 CSS 不依赖图片。 */
+.cover-ai .cover-art { background: radial-gradient(circle at 50% 55%, #3ec6d0 0 18%, transparent 19%), linear-gradient(145deg, #082433, #0c3d55); }
+.cover-ops .cover-art { background: radial-gradient(circle at 30% 60%, #7dd3fc 0 10%, transparent 11%), radial-gradient(circle at 70% 40%, #67e8f9 0 8%, transparent 9%), linear-gradient(160deg, #0b2a3c, #155e75); }
+.cover-fe .cover-art { background: radial-gradient(circle at 50% 48%, transparent 22%, #38bdf8 23% 26%, transparent 27%), linear-gradient(160deg, #0b2740, #1e3a8a); }
+.cover-be .cover-art { background: linear-gradient(145deg, #064e3b, #0f766e); }
+.cover-arch .cover-art { background: linear-gradient(145deg, #0f172a, #1d4ed8); }
+.cover-db .cover-art { background: linear-gradient(145deg, #1e1b4b, #0f766e); }
+
+/* 封面左上角分类角标。z-index:2 保证它盖在 .cover-art 之上 */
+.cover-badge {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  font-size: 11px; color: #dff8ff; background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 3px 8px;
+}
+
+.article-body { padding: 14px 14px 16px; }
+.article-body h3 { margin: 0 0 8px; font-size: 16px; line-height: 1.45; }
+/* min-height 让摘要长短不一时卡片底部依然对齐 */
+.article-body p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; min-height: 42px; }
+.card-meta { display: flex; justify-content: space-between; margin-top: 12px; color: #7b8f9c; font-size: 12px; }
+
+/* 首页双入口卡片（学习笔记 / 行业思考） */
+.path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 8px 0 10px; }
+.path-card { border-radius: 16px; padding: 22px 24px; display: grid; gap: 8px; }
+.path-card small { color: var(--teal); letter-spacing: .14em; font-size: 11px; }   /* 英文小标签，加大字距更像 label */
+.path-card strong { font-size: 22px; }
+.path-card span { color: var(--muted); line-height: 1.7; }
+.path-card:hover { border-color: rgba(11,154,168,.3); transform: translateY(-2px); transition: .2s ease; }
+
+/* 「现在在写什么」区块 */
+.now-block { border-radius: 16px; padding: 24px 26px; margin: 6px auto 36px; }
+.now-block h2 { margin: 0 0 10px; font-size: 20px; }
+.now-block p { margin: 0 0 14px; color: var(--muted); line-height: 1.8; max-width: 760px; }   /* 限制行宽，长句更好读 */
+
+
+/* ============================================================================
+   5. 文章列表页
+   ============================================================================ */
+
+.page { padding: 28px 0 48px; }
+.page-lead { color: var(--muted); margin: 8px 0 22px; }
+
+/* 筛选控件（.filters / .filter-chip 目前保留备用，列表页只用了搜索框） */
+.filters { display: grid; gap: 12px; margin: 16px 0 22px; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filter-row > span { width: 42px; color: var(--muted); font-size: 13px; }
+.filter-chip { height: 32px; padding: 0 12px; border-radius: 999px; font-size: 13px; }
+.filter-chip.is-on { background: #e7f7f7; border-color: rgba(11,154,168,.35); color: var(--teal); }
+
+.search-field {
+  width: min(360px, 100%); height: 40px; border-radius: 12px;
+  border: 1px solid var(--line); padding: 0 12px; background: var(--panel); color: var(--text);
+}
+
+/* 列表页两栏：左 250px 分类树，右自适应文章区。同样用 minmax(0, 1fr) 防撑宽 */
+.articles-shell { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 20px; align-items: start; }
+
+/* 分类侧栏：吸顶 + 纵向排列。gap:2px 让条目紧挨成一片，便于整块浏览 */
+.article-side { border-radius: 16px; padding: 12px; position: sticky; top: 84px; display: grid; gap: 2px; }
+
+/* 一条分类项：名字在左，文章数在右（justify-content: space-between） */
+.side-link { display: flex; justify-content: space-between; gap: 8px; padding: 7px 10px; border-radius: 8px; color: var(--muted); font-size: 14px; }
+.side-link small { color: #93a6b2; }
+.side-link:hover, .side-link.is-on { background: rgba(11,154,168,.08); color: var(--teal); }
+
+/* 三级的视觉层次：全部（加粗深色）→ 栏目（加粗更深）→ 分类（缩进 16px）→ 子分类（缩进 28px + 小字） */
+.side-all { font-weight: 700; color: var(--text); }
+.side-section { margin-top: 8px; font-weight: 800; color: var(--text); }
+.side-topic { padding-left: 16px; }
+.side-sub { padding-left: 28px; font-size: 13px; }
+
+/* 列表页的文章网格用 2 列（首页 4 列） */
+.article-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+
+/* ============================================================================
+   6. 文章详情页
+   ============================================================================ */
+
+/* 左列固定 220px 放目录，右列 minmax(0, 1fr) 自适应。
+   ⚠️ 一定要写 minmax(0, 1fr) 而不是 1fr：否则右栏里的内容（如长代码行）
+      会把网格撑宽，出现横向滚动条。 */
+.article-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; }
+
+/* 侧栏卡片吸顶。top:84px = 导航高度 64 + 20 留白 */
+.sticky-card { position: sticky; top: 84px; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.aside-title { font-weight: 800; margin-bottom: 10px; }
+
+.toc { display: grid; gap: 2px; }
+.toc-link { color: var(--muted); font-size: 13px; padding: 7px 8px; border-radius: 8px; }
+.toc-link.toc-lv3 { padding-left: 16px; font-size: 12px; }   /* 三级标题多缩进一档 */
+.toc-link:hover, .toc-link.is-active { background: rgba(11,154,168,.08); color: var(--teal); }
+
+.meta-card dl { margin: 0; }
+.meta-card dt { color: var(--muted); font-size: 12px; margin-top: 10px; }
+.meta-card dd { margin: 3px 0 0; }
+.share-row { display: flex; gap: 8px; margin-top: 14px; }
+.share-btn { height: 32px; padding: 0 10px; border-radius: 8px; font-size: 12px; }
+.share-btn.is-on { background: #e7f7f7; color: var(--teal); }
+
+.article-hero { border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+.article-hero h1 { margin: 12px 0 10px; font-size: 32px; letter-spacing: -.03em; }
+.article-hero > p { color: var(--muted); line-height: 1.7; }   /* > 只作用于直接子元素，避免误伤正文段落 */
+
+/* 标签胶囊行 */
+.pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill { font-size: 12px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.pill-accent { color: var(--teal); background: #eefafb; border-color: rgba(11,154,168,.2); }
+
+.author-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.mini-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff; font-weight: 800;
+  background: linear-gradient(135deg, #38bdf8, #10b981);
+}
+.author-row strong { display: block; font-size: 13px; }
+.author-row span { display: block; color: var(--muted); font-size: 12px; }
+.article-stats { margin-left: auto; display: flex; gap: 14px; color: var(--muted); font-size: 13px; }
+
+/* ── Markdown 正文排版（由 markdown.js 生成的 HTML 套用这些规则） ── */
+.markdown { border-radius: 16px; padding: 28px 32px; line-height: 1.9; }
+.markdown h2 { margin-top: 28px; }
+/* color-mix 把正文调淡一点（80% 主色 + 20% 次要色），比纯黑更耐读 */
+.markdown p, .markdown li { color: color-mix(in srgb, var(--text) 80%, var(--muted)); }
+.markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px; background: #f3f8f9; border: 1px solid var(--line);
+  border-radius: 6px; padding: 1px 5px;
+}
+:root[data-theme="dark"] .markdown code { background: #0d1c25; }
+.markdown a { color: var(--teal); }
+.markdown blockquote {
+  margin: 16px 0; padding: 10px 14px; border-left: 3px solid var(--teal);
+  background: rgba(11,154,168,.06); border-radius: 0 10px 10px 0;
+}
+
+/* 代码块外壳：深色底 + 顶部"窗口栏"（三个圆点 + 语言名）。
+   overflow:hidden 让内部圆角被外壳裁掉，保持外框整齐。 */
+.code-shell { margin: 18px 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #0d2430; }
+.code-toolbar {
+  height: 36px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 12px; color: #8aa0ad; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.code-toolbar span { display: flex; gap: 6px; }
+/* 三个 <i> 就是"红黄绿"三个圆点 */
+.code-toolbar i { width: 8px; height: 8px; border-radius: 50%; background: #64748b; display: block; }
+.code-toolbar i:first-child { background: #fb7185; }
+.code-toolbar i:nth-child(2) { background: #fbbf24; }
+.code-toolbar i:nth-child(3) { background: #34d399; }
+.code-shell pre { margin: 0; padding: 16px; overflow: auto; color: #d5eef3; }
+/* 覆盖上面 .markdown code 的浅色行内样式：代码块内不需要底色和描边 */
+.code-shell code { background: none; border: 0; color: inherit; padding: 0; }
+
+/* 表格：外层可横向滚动，防止宽表格在小屏撑破卡片 */
+.table-wrap { overflow: auto; }
+.markdown table { width: 100%; border-collapse: collapse; }
+.markdown th, .markdown td { border: 1px solid var(--line); padding: 8px 10px; }
+
+/* 架构示意图（article.js 的 archBoard() 生成）：四列，每列一个标题 + 两个节点 */
+.arch-board { border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+.arch-title { font-weight: 800; margin-bottom: 14px; }
+.arch-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.arch-col { display: grid; gap: 8px; }
+.arch-h, .arch-n {
+  border: 1px solid rgba(11,154,168,.2); border-radius: 10px;
+  padding: 10px 8px; text-align: center; font-size: 13px; background: #f6fdfd;
+}
+.arch-h { font-weight: 800; color: var(--teal); background: #e7f7f7; }   /* 列标题加重色 */
+
+/* 顶部阅读进度条：贴着导航栏下沿，宽度由 JS 按滚动百分比设置 */
+.reading-progress { position: fixed; top: var(--nav-h); left: 0; right: 0; height: 3px; z-index: 50; background: transparent; }
+.reading-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--green)); }
+
+
+/* ============================================================================
+   7. 关于我页
+   ============================================================================ */
+
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+/* 名片：左边 96px 放头像，右边放文字 */
+.profile-panel { border-radius: 16px; padding: 22px; display: grid; grid-template-columns: 96px 1fr; gap: 18px; align-items: center; }
+
+/* 头像外圈：padding:3px + 渐变背景 = 一圈彩色描边；内部 svg 自己有白底 */
+.avatar-ring {
+  width: 88px; height: 88px; border-radius: 50%; padding: 3px;
+  background: linear-gradient(135deg, #67e8f9, #34d399); display: grid; place-items: center;
+}
+.avatar-ring svg { background: #fff; border-radius: 50%; }
+
+.profile-panel h1 { margin: 0; font-size: 28px; }
+.profile-role { font-weight: 700; margin: 6px 0 8px; }
+.profile-bio { color: var(--muted); line-height: 1.7; }
+.profile-meta, .profile-actions { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.info-block { border-radius: 16px; padding: 20px; margin-top: 14px; }
+.info-block h2 { margin: 0 0 14px; font-size: 16px; }
+
+/* 技术栈胶囊（首页「现在在写什么」也复用这两个 class） */
+.skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-pill { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: #f4fbfb; font-size: 13px; }
+
+/* 下半区：左宽右窄（1.3 : 0.7），工作经历占大头 */
+.about-bottom { display: grid; grid-template-columns: 1.3fr .7fr; gap: 14px; }
+.timeline { display: grid; gap: 16px; }
+.timeline-row { display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
+.timeline-row i { width: 8px; height: 8px; margin-top: 6px; border-radius: 50%; background: var(--blue); }   /* 时间线圆点 */
+.timeline-row span, .edu-row span { display: block; color: var(--muted); font-size: 13px; margin: 4px 0; }
+.edu-row { margin-bottom: 12px; }
+
+
+/* ============================================================================
+   8. 分类 / 标签总览页
+   ============================================================================ */
+
+.tax-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tax-card { border-radius: 16px; padding: 22px; }
+.tax-card strong { display: block; font-size: 18px; }
+.tax-card span { color: var(--muted); font-size: 13px; }
+
+
+/* ============================================================================
+   9. 搜索弹层（chrome.js 动态插入）
+   ============================================================================ */
+
+/* 全屏半透明遮罩。place-items: start center + padding-top 让面板停在屏幕上方 12vh 处 */
+.search-overlay {
+  position: fixed; inset: 0; z-index: 80;
+  background: rgba(8, 28, 38, .36);
+  display: grid; place-items: start center; padding-top: 12vh;
+}
+/* ⚠️ 必须 !important：上面把 display 设成了 grid，而 [hidden] 自带的 display:none 优先级更低，
+   不加 !important 的话 hidden 属性会失效（弹层永远可见）。 */
+.search-overlay[hidden] { display: none !important; }
+.search-panel { width: min(680px, calc(100% - 32px)); border-radius: 16px; overflow: hidden; }
+.search-head { display: flex; gap: 8px; padding: 12px; border-bottom: 1px solid var(--line); }
+.search-head input { flex: 1; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 16px; }
+/* max-height 限制结果区高度，超出滚动，避免长列表把弹层顶出屏幕 */
+.search-results { padding: 8px; max-height: 52vh; overflow: auto; }
+.search-hit { display: grid; gap: 4px; padding: 10px; border-radius: 10px; }
+.search-hit:hover { background: rgba(11,154,168,.08); }
+.search-hit small { color: var(--teal); font-size: 12px; }
+.search-hit span { color: var(--muted); font-size: 13px; }
+
+
+/* ============================================================================
+   10. 其他 & 响应式
+   ============================================================================ */
+
+/* 空状态占位（没文章、没精选、文章不存在时都用它） */
+.empty { border-radius: 16px; padding: 28px; color: var(--muted); }
+
+.related { margin-top: 22px; }
+.related h2 { font-size: 20px; }
+.related .article-grid { grid-template-columns: repeat(3, 1fr); }   /* 相关文章固定 3 列 */
+
+.site-footer { border-top: 1px solid var(--line); padding: 22px 0; color: var(--muted); font-size: 13px; }
+.footer-inner { display: flex; justify-content: space-between; gap: 12px; }
+
+/* ── 断点一：平板（≤980px）──
+   多栏布局全部塌成一列；卡片网格降到 2 列；隐藏导航链接与搜索框文字。 */
+@media (max-width: 980px) {
+  .hero, .article-layout, .about-grid, .about-bottom, .articles-shell, .path-grid { grid-template-columns: 1fr; }
+  .article-grid, .stat-grid, .tax-grid, .arch-flow, .related .article-grid, .article-grid-2 { grid-template-columns: 1fr 1fr; }
+  .article-side { position: static; }   /* 侧栏不再吸顶，改为跟在内容上方正常滚动 */
+  .article-aside { display: none; }     /* 详情页左侧目录在窄屏隐藏（改由顶部进度条代替） */
+  .nav-links { display: none; }
+  .search-chip span, .search-chip kbd { display: none; }
+}
+
+/* ── 断点二：手机（≤640px）──
+   网格再降到 1 列；名片居中；Hero 标题和正文内边距收小。 */
+@media (max-width: 640px) {
+  .article-grid, .stat-grid, .tax-grid, .about-stats, .arch-flow, .related .article-grid { grid-template-columns: 1fr; }
+  .profile-panel { grid-template-columns: 1fr; text-align: center; }
+  .profile-meta, .profile-actions { justify-content: center; }
+  .hero h1 { font-size: 36px; }
+  .markdown { padding: 20px; }
+}
