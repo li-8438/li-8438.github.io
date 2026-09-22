@@ -1480,6 +1480,23 @@
       "date": "2026-09-04",
       "published": true,
       "file": "articles/vector-database-rag.md"
+    },
+    {
+      "slug": "cloud-deployment-responsibility",
+      "title": "云端部署：你买的不是服务器，是「不用管什么」",
+      "summary": "「云端部署」经常被理解成「把服务放到云服务器上」，那只是搬家。这篇讲清三件事：选抽象层其实是选你买断多少运维责任、账单里最贵的往往是出网流量和闲置而不是机器、以及为什么上云第一步不是买机器而是无状态化。附责任光谱对照表、2026 的冷启动与成本实测、一张「什么时候该回迁」的决策表。",
+      "section": "行业思考",
+      "topic": "架构与选型",
+      "subtopic": "部署与成本",
+      "tags": [
+        "云部署",
+        "云原生",
+        "架构选型",
+        "成本"
+      ],
+      "date": "2026-09-22",
+      "published": true,
+      "file": "articles/cloud-deployment-responsibility.md"
     }
   ]
 }
