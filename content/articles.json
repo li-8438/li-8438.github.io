@@ -1,77 +1,1485 @@
 {
   "articles": [
     {
-      "slug": "llm-engineering-guide",
-      "title": "大模型工程化落地实践指南",
-      "summary": "从模型选型、数据准备到部署与降级，讨论大模型从 Demo 走到生产时真正要处理的问题。",
+      "slug": "llm-engineer-generalist-vs-specialist",
+      "title": "大模型工程师会走向 PED 通才，还是重演前后端分工",
+      "summary": "每隔一阵就有人问：AI 都能写代码了，以后是不是不需要分工了？这个问题问错了。分工是对稀缺资源的响应，AI 改变的只是公式的一边。这篇讲清前后端分工为什么会出现、AI 到底改了什么、PED 通才为什么正在起来，以及更重要的一点——分工不会消失，它只是从「按技术栈切」换成了「按不确定性切」。",
+      "section": "行业思考",
+      "topic": "行业与职业",
+      "subtopic": "行业观察",
+      "tags": [
+        "LLM",
+        "工程化",
+        "职业发展",
+        "行业观察"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/llm-engineer-generalist-vs-specialist.md"
+    },
+    {
+      "slug": "ai-gateway-llm-infrastructure",
+      "title": "AI Gateway：每个用 LLM 的团队最后都会长出这一层",
+      "summary": "每天 100 次请求的 Demo，直连模型厂商 API 完全没问题。真实用户每天产生几千次不可预测的请求时，直连会同时暴露六个问题：成本不可归因、厂商一挂全站挂、一个失控循环几分钟烧穿预算、每个团队重复实现重试与缓存、模型切换要改全站代码。这篇讲清 AI Gateway 这一层到底解决什么、五个核心能力怎么落地、什么时候其实不该上，以及它正在往 agent 策略咽喉点演进的方向。",
+      "section": "行业思考",
+      "topic": "架构与选型",
+      "subtopic": "后端架构",
+      "tags": [
+        "AI Gateway",
+        "后端架构",
+        "LLM",
+        "成本控制",
+        "架构选型"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/ai-gateway-llm-infrastructure.md"
+    },
+    {
+      "slug": "validation-tax-ai-senior-junior",
+      "title": "验证税：为什么 AI 让资深工程师变慢，却让新人变快",
+      "summary": "大多数 AI 落地方案都有一个隐含假设：把最好的工具给最强的人，产出会成倍放大。这个假设可能是错的。随机对照试验显示资深开发者用 AI 后慢了 19%，而初级开发者的代码产出涨了 50% 以上。这不是模型的偏见，是一个叫「验证税」的机制在起作用——你知道正确答案长什么样，所以你没法直接接受 AI 给的答案。这篇讲清这个倒置的层级、它的三个成本来源，以及它对你该投资哪些能力的具体影响。",
+      "section": "行业思考",
+      "topic": "行业与职业",
+      "subtopic": "能力模型",
+      "tags": [
+        "能力模型",
+        "AI 编程",
+        "职业发展",
+        "生产率",
+        "行业与职业"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/validation-tax-ai-senior-junior.md"
+    },
+    {
+      "slug": "ai-coding-quality-bill",
+      "title": "82 美分去哪了：AI 写代码的真实质量账",
+      "summary": "所有人都在算 AI 编程省了多少时间，几乎没人算它带来的质量成本。三家独立机构分别从不同角度算了这笔账：每一美元的 AI 代码只有 82 美分转化为真实价值，AI 代码的缺陷密度是人工的 1.7 倍，而全行业的代码库正在悄悄腐烂——重复率上升、重构消失。省下来的时间不是没有代价，代价只是被推迟到了下游。这篇讲清这笔账怎么算、成本藏在哪里，以及真正该盯的那个指标。",
+      "section": "行业思考",
+      "topic": "行业与职业",
+      "subtopic": "行业观察",
+      "tags": [
+        "AI 编程",
+        "代码质量",
+        "技术债",
+        "生产率",
+        "行业观察"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/ai-coding-quality-bill.md"
+    },
+    {
+      "slug": "your-1m-context-is-lying",
+      "title": "你的 1M 上下文在骗你：位置、长度与 context rot",
+      "summary": "厂商海报上的「1M 上下文」是个营销数字，不是工程能力。实测里，18 个主流模型在长上下文下全部出现性能衰减，信息放在上下文中间会掉进一个「位置死亡区」，超过某个长度地板后模型开始系统性遗忘，而最反直觉的是——把无关信息打乱塞进去，模型反而答得更准。这篇讲清长上下文的四个真实边界，以及为什么「塞得越多」从来不是免费的。",
       "section": "行业思考",
       "topic": "AI 落地",
       "subtopic": "能力边界",
-      "tags": ["LLM", "工程化", "AI"],
-      "date": "2024-05-20",
+      "tags": [
+        "长上下文",
+        "context rot",
+        "RAG",
+        "能力边界",
+        "LLM"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/your-1m-context-is-lying.md"
+    },
+    {
+      "slug": "ai-product-beyond-chatbox",
+      "title": "别再交付一个聊天框",
+      "summary": "判断一个 AI 产品弱不弱，只需要问三个问题：它能做什么动作？它改了什么？怎么回滚？答不上来的，多半是换皮聊天框。2026 年真正活得下来的 AI 产品，形态已经从「对话即终点」变成「对话即起点」——对话不再是价值的全部，而是一串自动执行的触发器。这篇讲清这个迁移是什么、保证从哪来，以及为什么 Agent 的隐藏成本不是 token 而是异常。",
+      "section": "行业思考",
+      "topic": "AI 落地",
+      "subtopic": "产品形态",
+      "tags": [
+        "AI 产品",
+        "Agent",
+        "产品形态",
+        "工作流",
+        "AI 落地"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/ai-product-beyond-chatbox.md"
+    },
+    {
+      "slug": "llm-eval-benchmark-gap",
+      "title": "37% 的落差：为什么榜单高分救不了你的线上系统",
+      "summary": "前沿模型在 MMLU 上已经拿到 88% 以上，但生产环境里的任务完成率平均要低三十几个百分点。某金融客户的意图分类模型测试集 F1 92%，上线后业务通过率掉到 68%。这篇讲清这个落差从哪来、为什么离线评测看不到三到四成的真实失败模式、三层评测框架怎么搭，以及一个更重要的判断——评测不是技术活，是产品决策。",
+      "section": "行业思考",
+      "topic": "AI 落地",
+      "subtopic": "评估与风险",
+      "tags": [
+        "评测",
+        "LLM",
+        "生产落地",
+        "风险控制",
+        "AI 落地"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/llm-eval-benchmark-gap.md"
+    },
+    {
+      "slug": "llm-engineering-guide",
+      "title": "大模型工程化落地实践指南",
+      "summary": "大模型接入业务的难点不在第一次 API 调用，而在稳定性、成本、可观测性和可维护性。这篇从架构封装、模型选型、评测集、微调时机、部署降级到监控，讲清把一个会波动的外部依赖收进生产系统时真正要处理的事。",
+      "section": "行业思考",
+      "topic": "AI 落地",
+      "subtopic": "能力边界",
+      "tags": [
+        "LLM",
+        "工程化",
+        "AI 落地",
+        "架构"
+      ],
+      "date": "2026-09-07",
       "published": true,
       "diagram": "llm-arch",
       "file": "articles/llm-engineering-guide.md"
     },
     {
-      "slug": "docker-compose-production",
-      "title": "Docker 容器化部署最佳实践",
-      "summary": "用多阶段构建、数据卷和环境变量，把全栈项目收成可重复部署的单元。",
-      "section": "行业思考",
-      "topic": "架构与选型",
-      "subtopic": "部署与成本",
-      "tags": ["Docker", "部署"],
-      "date": "2024-05-15",
-      "published": true,
-      "file": "articles/docker-compose-production.md"
-    },
-    {
       "slug": "react-next-performance",
       "title": "React 性能优化之路",
-      "summary": "从缩小客户端边界到静态资源策略，整理前端性能里更值得先做的事。",
+      "summary": "前端性能优化很少来自“再少写一行 state”，更多来自把更少的工作发到浏览器。这篇从先量再改、服务端优先、缩小客户端边界、静态资源策略到可感知性能，讲清 React/Next.js 项目里更值得先做的事，以及那些“看起来在优化其实没用”的坑。",
       "section": "行业思考",
       "topic": "行业与职业",
       "subtopic": "工作方法",
-      "tags": ["React", "性能"],
-      "date": "2024-05-12",
+      "tags": [
+        "React",
+        "Next.js",
+        "性能",
+        "前端"
+      ],
+      "date": "2026-09-07",
       "published": true,
       "file": "articles/react-next-performance.md"
     },
     {
-      "slug": "fastapi-production-architecture",
-      "title": "FastAPI 高性能架构实践",
-      "summary": "用分层、配置前置和仓储边界，把 FastAPI 项目收成可维护的 Python 服务。",
-      "section": "学习笔记",
-      "topic": "Python",
-      "subtopic": "",
-      "tags": ["Python", "FastAPI"],
-      "date": "2024-05-18",
-      "published": true,
-      "file": "articles/fastapi-production-architecture.md"
-    },
-    {
       "slug": "static-site-github-pages",
       "title": "用 GitHub Pages 发布模块化静态博客",
-      "summary": "不依赖后端和数据库，用 Markdown 与静态资源把博客发布到 Pages。",
+      "summary": "静态站不是“技术落后”，而是把复杂度换了个地方放。这篇讲清什么样的站适合静态化、内容与页面怎么分离、两种仓库形态的路径陷阱、必须主动放弃哪些能力以及用什么替代，还有 Pages 的成本配额边界。",
       "section": "行业思考",
       "topic": "架构与选型",
       "subtopic": "部署与成本",
-      "tags": ["GitHub Pages", "静态站"],
-      "date": "2024-06-02",
+      "tags": [
+        "GitHub Pages",
+        "静态站",
+        "架构选型",
+        "部署"
+      ],
+      "date": "2026-09-07",
       "published": true,
       "file": "articles/static-site-github-pages.md"
     },
     {
       "slug": "sqlite-to-postgres-notes",
       "title": "从 SQLite 到 PostgreSQL 的取舍",
-      "summary": "个人项目何时该坚持零配置数据库，何时值得迁到 Postgres。",
+      "summary": "SQLite 的零配置是巨大优势，不该为了“看起来专业”而过早换掉。这篇讲清 SQLite 被低估的能力、真正该迁 Postgres 的四个信号、迁移时必须守住的边界，以及类型/分页/JSON/时间这几处最容易咬人的方言差异。",
       "section": "行业思考",
       "topic": "架构与选型",
       "subtopic": "数据架构",
-      "tags": ["SQLite", "PostgreSQL"],
-      "date": "2024-05-08",
+      "tags": [
+        "SQLite",
+        "PostgreSQL",
+        "数据库",
+        "架构选型"
+      ],
+      "date": "2026-09-07",
       "published": true,
       "file": "articles/sqlite-to-postgres-notes.md"
+    },
+    {
+      "slug": "rag-naive-vs-refined",
+      "title": "朴素 RAG 已死，精细 RAG 正在繁荣",
+      "summary": "上下文窗口涨到 1M 之后，「RAG 已死」的说法传了一整年。数据否定了它：RAG 框架使用量两年涨了 400%，六成生产 LLM 应用在用它，同等负载下比长上下文便宜 8 到 82 倍。真正死掉的是「切块-嵌入-召回」三件套的朴素 RAG。这篇讲清 2026 年决定检索效果的五个决策，以及那些被当成金科玉律、其实正在被证据推翻的默认做法。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "检索",
+        "Embedding",
+        "Rerank",
+        "LLM 应用"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/rag-naive-vs-refined.md"
+    },
+    {
+      "slug": "agent-poc-to-production",
+      "title": "88% 的 Agent 停在试点：从 Demo 到生产的六个失败模式",
+      "summary": "大约 99% 的公司计划把 AI Agent 投入生产，真正做到的只有 9% 到 14%。卡住它们的不是模型不够聪明。这篇拆开六个反复出现的失败模式——无限循环、上下文溢出、工具输出投毒、自信的错误答案、灾难性动作，以及最反直觉的那个：工具给得太多反而让 Agent 变笨。每个模式都配可落地的修复方式。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "Agent",
+      "tags": [
+        "Agent",
+        "MCP",
+        "生产落地",
+        "可靠性",
+        "LLM 应用"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/agent-poc-to-production.md"
+    },
+    {
+      "slug": "prompt-context-loop-engineering",
+      "title": "提示词、上下文、循环：瓶颈是怎么一层层往上移的",
+      "summary": "流行叙事说：提示词工程饱和了，于是有了上下文工程；上下文工程饱和了，于是有了循环工程。这个「学科演化」的故事很干净，但它是错的——ReAct 比「循环工程」这个名字早了三年多，RAG 论文比「提示词工程」这个词早了两年。正确的框架不是学科在演化，而是瓶颈在移动。想清楚这一点，你就不会再去追下一个新名词，而是会去找自己系统当前真正的瓶颈在哪一层。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "上下文工程",
+        "Agent",
+        "方法论",
+        "LLM 应用"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/prompt-context-loop-engineering.md"
+    },
+    {
+      "slug": "do-you-need-a-vector-database",
+      "title": "先别急着买向量数据库",
+      "summary": "一个典型的 RAG 请求耗时 300 毫秒，其中向量检索只占 5 到 8 毫秒，而生成查询向量占了 90 毫秒——是数据库的十倍。你在优化一个根本不是瓶颈的东西。这篇讲清 2026 年向量数据库的真实格局、什么时候根本不需要独立向量库、什么时候真的需要，以及一条被反复验证过的选型路径。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "向量数据库",
+      "tags": [
+        "向量数据库",
+        "pgvector",
+        "混合检索",
+        "架构选型",
+        "数据与存储"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/do-you-need-a-vector-database.md"
+    },
+    {
+      "slug": "embedding-reranker-nlp-craft",
+      "title": "Embedding 与 Reranker：NLP 老手艺为什么反而更值钱",
+      "summary": "大模型出来之后，学 NLP 的人最容易产生的怀疑是：分词、embedding、相似度计算这些老手艺是不是被一口吞了。答案恰好相反。它们没有消失，只是从「模型内部」搬到了「系统外部」，并且变成了决定效果的那一层。这篇讲清 bi-encoder 与 cross-encoder 的分工、稀疏检索为什么没被淘汰、reranker 为什么成了质量提升的主要来源，以及中文场景下的几个具体选择。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "Embedding",
+        "Reranker",
+        "向量检索",
+        "模型基础"
+      ],
+      "date": "2026-09-08",
+      "published": true,
+      "file": "articles/embedding-reranker-nlp-craft.md"
+    },
+    {
+      "slug": "docker-compose-production",
+      "title": "Docker Compose 生产配置：健康检查、启动顺序与资源限制",
+      "summary": "开发环境的 compose 文件直接上生产会出事——服务还没就绪就被访问、容器崩了没人拉起、日志把磁盘写满、一个容器吃光整台机器的内存。这篇讲生产环境必须改的那几项：healthcheck 与 depends_on 的配合、重启策略、资源限额、密钥管理和日志轮转，附一份可直接用的完整配置。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Docker",
+      "tags": [
+        "Docker",
+        "Compose",
+        "部署",
+        "运维"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/docker-compose-production.md"
+    },
+    {
+      "slug": "fastapi-production-architecture",
+      "title": "FastAPI 高性能架构实践",
+      "summary": "很多团队把 FastAPI 用成了「更快的 Flask」，直到某天一次同步调用把整个 worker 冻住，连健康检查都超时。这篇不列 API 清单，而是按一次请求「进到出」的顺序讲四件事：分层切在哪、async def 与 def 怎么分工、三类资源生命周期各放在哪、以及没有可观测性为什么等于没法优化。最后附连接池与 worker 数的预算算法。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "Backend"
+      ],
+      "date": "2026-09-21",
+      "published": true,
+      "file": "articles/fastapi-production-architecture.md"
+    },
+    {
+      "slug": "docker-basics",
+      "title": "Docker 核心概念与交付流程：镜像、容器和那条从开发到上线的路",
+      "summary": "Docker 的门槛不在命令，而在搞清「镜像」和「容器」到底什么关系、改了容器为什么重启就没了。这篇从三个核心概念讲起，串起一条完整交付链路：写 Dockerfile → 构建镜像 → 推仓库 → 服务器拉取 → 启动，并说清每一步在解决什么问题。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Docker",
+      "tags": [
+        "Docker",
+        "容器化",
+        "部署",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/docker-basics.md"
+    },
+    {
+      "slug": "docker-to-kubernetes",
+      "title": "从 Docker 到 Kubernetes：单机容器到底够用到什么时候",
+      "summary": "Compose 一把梭的部署方式，会在哪一天突然不够用？这篇不列命令清单，而是回答三个问题：Docker 和 Kubernetes 究竟是什么关系、同一件事在两边怎么做、以及迁移时真正会翻车的六个点。附一份把 RAG 服务从 Compose 搬到集群的完整清单（Deployment、三探针、优雅停机、HPA、Gateway API），以及一张「什么时候别上 Kubernetes」的决策表。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Kubernetes",
+      "tags": [
+        "Docker",
+        "Kubernetes",
+        "容器编排",
+        "部署",
+        "运维"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/docker-to-kubernetes.md"
+    },
+    {
+      "slug": "docker-troubleshooting",
+      "title": "Docker 排障与交付清单：从「起不来」到「敢上线」",
+      "summary": "容器起不来、健康检查失败、端口不通、磁盘半夜写满——这些是线上最常见的 Docker 故障。这篇不讲概念，讲方法论：一套从现象到根因的排查路径，六个高频故障的定位命令，以及一份上线前逐项打勾的交付清单。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Docker",
+      "tags": [
+        "Docker",
+        "排障",
+        "运维",
+        "部署"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/docker-troubleshooting.md"
+    },
+    {
+      "slug": "dockerfile-best-practices",
+      "title": "Dockerfile 最佳实践：多阶段构建与镜像瘦身",
+      "summary": "能跑的 Dockerfile 和写得好的 Dockerfile 之间，可能差着 1GB 体积和五分钟构建时间。这篇讲的是真正影响结果的那几条：多阶段构建怎么砍掉 80% 体积、COPY 的顺序为什么决定构建速度、怎么用非 root 用户、以及那些悄悄把镜像撑大的坑。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Docker",
+      "tags": [
+        "Docker",
+        "Dockerfile",
+        "镜像优化",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/dockerfile-best-practices.md"
+    },
+    {
+      "slug": "git-advanced-rescue",
+      "title": "Git 高级命令与救援：reflog、bisect、stash 与撤回的三种力度",
+      "summary": "会用 add/commit/push 只是入门，真正的分水岭是出事之后——误 reset 了怎么找回、哪个提交引入了 bug 怎么定位、手上的活没写完却要切分支怎么办。这篇讲 Git 的「后悔药」体系：reflog 安全网、reset 三档力度、revert 与 reset 的取舍、bisect 二分定位、stash 与 worktree。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Git",
+      "tags": [
+        "Git",
+        "排障",
+        "版本控制",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/git-advanced-rescue.md"
+    },
+    {
+      "slug": "git-basics",
+      "title": "Git 入门：三区域、四状态，以及它和 SVN 到底差在哪",
+      "summary": "很多人用了几年 Git，只记得 add / commit / push 三条命令，一旦遇到 「detached HEAD」 或者误 reset 就慌了。这篇从最底层的存储模型讲起——Git 为什么快、三个区域和四种状态是什么关系、哪些命令碰了就回不来。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Git",
+      "tags": [
+        "Git",
+        "版本控制",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/git-basics.md"
+    },
+    {
+      "slug": "git-branch-remote",
+      "title": "Git 分支与远程协作：从开分支到解冲突",
+      "summary": "分支是 Git 最锋利的工具，也是最容易搞混的地方——合并方向搞反、冲突不会解、push 被拒。这篇把分支操作和远程协作串成一条线：分支怎么开、合并方向怎么记、冲突怎么解、SSH 怎么配，以及那些「push 不上去」的经典场景。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Git",
+      "tags": [
+        "Git",
+        "版本控制",
+        "协作",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/git-branch-remote.md"
+    },
+    {
+      "slug": "git-workflow-strategy",
+      "title": "Git 工作流与提交规范：分支策略怎么选，rebase 还是 merge",
+      "summary": "分支策略没有标准答案，但选错代价很大：要么流程重得走不动，要么 main 上天天出问题。这篇对比四种主流工作流（Trunk-Based / GitHub Flow / GitFlow / Release Flow）的适用场景，讲清 rebase 和 merge 的安全边界，以及 Conventional Commits 为什么不只是形式主义。",
+      "section": "学习笔记",
+      "topic": "工程工具",
+      "subtopic": "Git",
+      "tags": [
+        "Git",
+        "工作流",
+        "代码评审",
+        "工程工具"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/git-workflow-strategy.md"
+    },
+    {
+      "slug": "llm-hallucination",
+      "title": "大模型幻觉：成因、分类与四层解法",
+      "summary": "幻觉不是模型的 bug，而是它工作方式的必然副产品。这篇讲清幻觉的本质、事实性与忠实性两类分类、各自的三类成因，以及提示词工程、RAG、微调、Agent 四层解法的能力边界。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "大模型",
+        "幻觉",
+        "RAG",
+        "微调"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/llm-hallucination.md"
+    },
+    {
+      "slug": "prompt-chaining-react",
+      "title": "Prompt Chaining 与 ReAct：让模型分步骤完成任务",
+      "summary": "一个提示词搞不定的任务怎么办？这篇讲两种多步执行方案：把任务拆成提示词链的 Prompt Chaining，以及让模型自主「思考-行动-观察」循环的 ReAct 框架，附完整可运行代码。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "ReAct",
+        "Agent",
+        "Prompt Chaining"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/prompt-chaining-react.md"
+    },
+    {
+      "slug": "prompt-engineering-basics",
+      "title": "提示词工程基础：用好大模型的五条原则",
+      "summary": "提示词不是「会问问题」就够了。这篇讲清提示词工程的定位，以及清晰指令、提供参考、拆分任务、给思考时间、借助外部工具这五条原则，每条都配可对比的正反示例。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "大模型",
+        "Prompt"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/prompt-engineering-basics.md"
+    },
+    {
+      "slug": "prompt-message-roles",
+      "title": "System / User / Assistant：三种角色与 System Prompt 设计",
+      "summary": "为什么同样的内容放在 system 里比放在 user 里更听话？这篇讲清三种消息角色的定位与优先级、System Prompt 的四段式写法，以及生产环境里版本管理和敏感信息处理的实践。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "大模型",
+        "System Prompt"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/prompt-message-roles.md"
+    },
+    {
+      "slug": "prompt-security-defense",
+      "title": "提示词安全：注入、越狱与数据泄露的防御",
+      "summary": "用户可以在输入框里写「忽略之前的指令」，你的应用就废了。这篇讲清提示词注入、越狱、数据提取三类攻击的原理和真实 Payload，以及输入隔离、权限锁定、输出过滤这套分层防御方案。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "大模型安全",
+        "提示词注入"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/prompt-security-defense.md"
+    },
+    {
+      "slug": "prompt-zero-few-shot-cot",
+      "title": "Zero-shot、Few-shot 与思维链：四种提示词进阶技术",
+      "summary": "什么时候该给示例、什么时候该让模型写推理过程？这篇讲清 Zero-shot、Few-shot、Chain-of-Thought、Self-Consistency 四种技术的原理、适用场景和成本，以及如何按任务复杂度选型。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "提示词工程",
+        "Few-shot",
+        "思维链",
+        "CoT"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/prompt-zero-few-shot-cot.md"
+    },
+    {
+      "slug": "rag-chunking-strategies",
+      "title": "RAG 分块策略：从固定切分到父子块",
+      "summary": "分块不是「按字数切」那么简单，它直接决定检索质量的上限。这篇对比固定切分、递归切分、语义切分、父子块四种策略的原理与适用边界，讲清中文分隔符、稳定 chunk id、表格特殊处理这些工程细节。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "分块",
+        "chunking",
+        "向量检索"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-chunking-strategies.md"
+    },
+    {
+      "slug": "rag-context-prompt",
+      "title": "RAG 上下文构建：三重约束与 Prompt 档位路由",
+      "summary": "检索到好文档不等于能生成好答案。这篇讲清上下文构建的三重约束（分数阈值、条数、字符数）、来源排序与去重、Prompt 档位的两维路由机制，以及「必须允许模型说不知道」这条防幻觉铁律。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "上下文工程",
+        "Prompt",
+        "幻觉"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-context-prompt.md"
+    },
+    {
+      "slug": "rag-core-pipeline",
+      "title": "RAG 核心链路：从一次提问到带引用的答案",
+      "summary": "大多数 RAG 教程停在「检索 + 拼提示词」，但那套东西上不了生产。这篇拆解一条真正跑得起来的八阶段链路：查询路由、意图识别、追问改写、FAQ 与文档双层检索、上下文构建、Prompt 档位路由、流式生成、引用补强，每个阶段讲清「为什么必须这么做」。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "大模型",
+        "检索增强",
+        "系统架构"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-core-pipeline.md"
+    },
+    {
+      "slug": "rag-evaluation",
+      "title": "RAG 评测：从 Recall@K 到 Bad Case 闭环",
+      "summary": "没有评测的 RAG 系统，质量只会静默劣化。这篇讲清检索与生成为什么要分开评测、Recall@K 和 MRR 这些指标怎么算、阈值门禁怎么设，以及从线上 bad case 到回归测试集的完整闭环怎么建。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "评测",
+        "Recall@K",
+        "MRR",
+        "质量门禁"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-evaluation.md"
+    },
+    {
+      "slug": "rag-hybrid-search",
+      "title": "RAG 混合检索：向量与关键词为什么要一起用",
+      "summary": "纯向量检索有个致命盲区——遇到型号、错误码、人名这类「必须精确匹配」的词就失效。这篇讲清 BM25 与稠密检索各自的失效边界、RRF 融合为什么优于加权平均，以及 Milvus 内置 BM25 的落地配置。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "混合检索",
+        "BM25",
+        "RRF",
+        "向量数据库"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-hybrid-search.md"
+    },
+    {
+      "slug": "rag-knowledge-governance",
+      "title": "RAG 知识库治理：版本、隔离与入库质量",
+      "summary": "检索算法再好，知识库本身脏了也白搭。这篇讲三个工程支柱：知识库版本管理为什么需要三个版本号、多租户数据隔离为什么必须在检索层做、以及入库质量检查该拦哪些问题。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "知识库治理",
+        "数据隔离",
+        "版本管理"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-knowledge-governance.md"
+    },
+    {
+      "slug": "rag-query-optimization",
+      "title": "RAG 查询优化：改写、变体与 HyDE",
+      "summary": "用户的问题往往不是好的检索词。这篇讲三种查询优化手段：追问改写消除指代、查询变体扩展同义表达、HyDE 用假设答案反向检索，以及各自的成本、风险和开关条件。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "查询改写",
+        "HyDE",
+        "Query Expansion"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-query-optimization.md"
+    },
+    {
+      "slug": "rag-rerank",
+      "title": "RAG 重排序：为什么 Rerank 是性价比最高的一步",
+      "summary": "检索出的前几条往往不是最相关的。这篇讲清双塔检索的信息损失从哪来、CrossEncoder 为什么更准却不能全库扫描、两阶段架构的数量配比，以及候选去重与本地模型部署的实践细节。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "RAG",
+      "tags": [
+        "RAG",
+        "Rerank",
+        "CrossEncoder",
+        "重排序"
+      ],
+      "date": "2026-09-07",
+      "published": true,
+      "file": "articles/rag-rerank.md"
+    },
+    {
+      "slug": "dl-cnn",
+      "title": "卷积神经网络：卷积层、池化层与感受野",
+      "summary": "为什么图像处理不能直接用全连接层？卷积核怎么提取边缘、纹理、形状？这篇讲清卷积计算过程、padding 和 stride 的作用、池化的意义，以及 CNN 的层级特征学习。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "深度学习",
+        "CNN",
+        "卷积神经网络",
+        "卷积层",
+        "池化"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/dl-cnn.md"
+    },
+    {
+      "slug": "dl-neural-network",
+      "title": "神经网络基础：神经元、前向传播与激活函数",
+      "summary": "一个神经元在干什么？为什么要加激活函数？前向传播和反向传播分别在算什么？这篇把神经网络的最小单元拆开讲，并给出四种激活函数的选型指南。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "深度学习",
+        "神经网络",
+        "激活函数",
+        "前向传播",
+        "PyTorch"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/dl-neural-network.md"
+    },
+    {
+      "slug": "dl-optimizers",
+      "title": "优化器与学习率调度：从 SGD 到 Adam",
+      "summary": "SGD、Momentum、Adagrad、RMSProp、Adam 到底差在哪？学习率衰减为什么能救活震荡的训练？这篇逐个拆解五种优化器的设计动机，并给出三种学习率调度策略的用法。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "PyTorch",
+        "优化器",
+        "Adam",
+        "学习率",
+        "梯度下降"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/dl-optimizers.md"
+    },
+    {
+      "slug": "dl-project-classification",
+      "title": "端到端实战：用全连接网络做手机价格分类",
+      "summary": "从读 CSV 到保存模型再到预测评估，走一遍完整的深度学习项目流程，并把训练过程中的优化手段（换优化器、加层、加 BN、学习率衰减）逐个拆解说明。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "PyTorch",
+        "项目实战",
+        "分类",
+        "训练流程",
+        "端到端"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/dl-project-classification.md"
+    },
+    {
+      "slug": "dl-regularization",
+      "title": "Dropout 与批量归一化：深度网络的正则化双雄",
+      "summary": "为什么随机让神经元失活反而能提升效果？BatchNorm 为什么能加速训练十倍？这篇讲清两者的作用时机、工作原理，以及为什么它们都必须在 train/eval 模式下行为不同。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "PyTorch",
+        "Dropout",
+        "BatchNorm",
+        "正则化",
+        "过拟合"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/dl-regularization.md"
+    },
+    {
+      "slug": "llm-structured-output-pydantic",
+      "title": "用 Pydantic 做结构化输出：让大模型稳定返回 JSON",
+      "summary": "用 Pydantic 定义输出 schema，让大模型稳定返回可解析的 JSON，配合 OpenAI、LangChain、Instructor 三种方式落地，并避开字段描述不清等常见坑。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "提示词工程",
+      "tags": [
+        "Pydantic",
+        "LLM",
+        "结构化输出",
+        "JSON"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/llm-structured-output-pydantic.md"
+    },
+    {
+      "slug": "ml-clustering-kmeans",
+      "title": "KMeans 聚类：无监督学习与簇数选择",
+      "summary": "没有标签怎么做机器学习？讲清 KMeans 的迭代流程、K 值怎么定（肘部法与轮廓系数）、算法的三类局限，并用用户分群案例说明落地思路。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "聚类",
+        "KMeans",
+        "无监督学习",
+        "用户分群"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-clustering-kmeans.md"
+    },
+    {
+      "slug": "ml-decision-tree",
+      "title": "决策树：信息增益、基尼系数与剪枝",
+      "summary": "树模型是怎么自动挑出「哪个特征最该先问」的？这篇讲清信息熵、信息增益、基尼系数的计算逻辑，预剪枝与后剪枝的区别，并用泰坦尼克号案例跑通完整分类流程。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "决策树",
+        "信息增益",
+        "基尼系数",
+        "剪枝"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-decision-tree.md"
+    },
+    {
+      "slug": "ml-ensemble-learning",
+      "title": "集成学习：Bagging 随机森林与 Boosting",
+      "summary": "三个臭皮匠顶过一个专家——讲清 Bagging 与 Boosting 两大流派的本质区别、随机森林凭什么比单棵决策树稳、Adaboost 怎么「知错就改」，以及 XGBoost 为什么是比赛神器。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "集成学习",
+        "随机森林",
+        "Adaboost",
+        "XGBoost"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-ensemble-learning.md"
+    },
+    {
+      "slug": "ml-feature-engineering",
+      "title": "特征工程：归一化、标准化与独热编码",
+      "summary": "为什么量纲差异会让模型训练崩掉？归一化与标准化怎么选、独热编码什么时候用、以及这些操作在 Embedding 和大模型场景里为什么依然重要。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "特征工程",
+        "归一化",
+        "标准化",
+        "One-Hot"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-feature-engineering.md"
+    },
+    {
+      "slug": "ml-foundations",
+      "title": "机器学习入门：概念、数据、分类与建模流程",
+      "summary": "理清人工智能、机器学习、深度学习三者的关系，搞懂样本/特征/标签、四大学习范式、建模六步流程，以及过拟合与欠拟合这对贯穿始终的核心矛盾。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "入门",
+        "过拟合",
+        "scikit-learn"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-foundations.md"
+    },
+    {
+      "slug": "ml-knn",
+      "title": "KNN 算法：原理、K 值选择与鸢尾花实战",
+      "summary": "最「懒」的机器学习算法——不需要训练，靠找邻居投票做预测。这篇讲清距离度量怎么选、K 值大小有什么影响、为什么必须做标准化，并用鸢尾花数据集跑完整流程。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "KNN",
+        "分类",
+        "鸢尾花",
+        "scikit-learn"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-knn.md"
+    },
+    {
+      "slug": "ml-linear-regression",
+      "title": "线性回归：损失函数、梯度下降与正则化",
+      "summary": "从 y=kx+b 出发，讲清损失函数是什么、正规方程为什么可能失效、梯度下降怎么一步步找到最优解、学习率怎么选、以及 L1/L2 正则化的本质区别。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "线性回归",
+        "梯度下降",
+        "损失函数",
+        "正则化"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-linear-regression.md"
+    },
+    {
+      "slug": "ml-model-evaluation",
+      "title": "模型评估：混淆矩阵、精确率召回率与交叉验证",
+      "summary": "准确率 95% 的模型可能是垃圾——这篇讲清混淆矩阵怎么看、精确率和召回率怎么权衡、F1 和 AUC 什么时候用、交叉验证为什么比单次划分可靠，以及网格搜索怎么用。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "机器学习",
+        "模型评估",
+        "混淆矩阵",
+        "交叉验证",
+        "网格搜索"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/ml-model-evaluation.md"
+    },
+    {
+      "slug": "mysql-basics",
+      "title": "MySQL 入门：DDL、DML 与 DQL",
+      "summary": "从建库建表（DDL）、增删改（DML）到查询（DQL），把 MySQL 最常用的三类 SQL 一次理清，涵盖数据类型选型、NULL 处理、多表连接、子查询和正则。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "MySQL",
+      "tags": [
+        "MySQL",
+        "SQL",
+        "数据库"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/mysql-basics.md"
+    },
+    {
+      "slug": "nlp-attention-transformer",
+      "title": "Attention 与 Transformer：大模型的技术基石",
+      "summary": "自注意力怎么算出「it 指的是 animal」？为什么除以 √d_k？多头注意力在并行看什么？这篇把 QKV、缩放点积、多头、位置编码、掩码机制逐个拆开，并给出可运行的最简实现。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "Transformer",
+        "注意力机制",
+        "大模型",
+        "位置编码",
+        "多头注意力"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-attention-transformer.md"
+    },
+    {
+      "slug": "nlp-rnn-lstm-gru",
+      "title": "RNN 及其变体：LSTM 与 GRU 的门控机制",
+      "summary": "循环神经网络怎么处理序列？为什么普通 RNN 记不住长文本？LSTM 的三个门是怎么解决梯度消失的？这篇把门控机制讲透，并说明为什么它们最终被 Transformer 取代。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "RNN",
+        "LSTM",
+        "GRU",
+        "梯度消失"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-rnn-lstm-gru.md"
+    },
+    {
+      "slug": "nlp-text-preprocessing",
+      "title": "NLP 文本预处理：分词、词性标注与命名实体识别",
+      "summary": "中文 NLP 的第一步是把句子切成词。这篇讲清 jieba 三种分词模式的区别与适用场景、自定义词典怎么解决领域词切错、词性标注和 NER 的用法，以及这些技术在 RAG 里的实际价值。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "jieba",
+        "分词",
+        "词性标注",
+        "命名实体识别"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-text-preprocessing.md"
+    },
+    {
+      "slug": "nlp-tokenizer-subword",
+      "title": "大模型分词器：BPE、WordPiece 与 SentencePiece",
+      "summary": "为什么中文比英文更费 token？为什么同一个词在不同模型里 token 数不一样？这篇讲清 BPE、WordPiece、SentencePiece 三种子词算法的原理与差异，以及分词器如何影响成本和上下文长度。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "Tokenizer",
+        "BPE",
+        "WordPiece",
+        "大模型"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-tokenizer-subword.md"
+    },
+    {
+      "slug": "nlp-transfer-learning-bert",
+      "title": "迁移学习与 BERT 微调实战",
+      "summary": "为什么微调比从头训练划算？预训练-微调范式是怎么工作的？这篇讲清迁移学习的两种用法、BERT 的输入格式与预训练任务，并用 HuggingFace 跑通一个完整的文本分类微调流程。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "BERT",
+        "迁移学习",
+        "微调",
+        "HuggingFace"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-transfer-learning-bert.md"
+    },
+    {
+      "slug": "nlp-word-embedding",
+      "title": "从 One-Hot 到 Word2Vec：词向量是怎么来的",
+      "summary": "为什么 One-Hot 表示不出「国王-男人+女人=王后」？Word2Vec 怎么用神经网络训练出带语义的词向量？CBOW 和 Skip-gram 有什么区别？这篇讲清词向量从稀疏到稠密的演进。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "NLP",
+      "tags": [
+        "NLP",
+        "Word2Vec",
+        "词向量",
+        "Embedding",
+        "One-Hot"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/nlp-word-embedding.md"
+    },
+    {
+      "slug": "numpy-pandas",
+      "title": "NumPy 与 Pandas 数据处理",
+      "summary": "NumPy 管数值计算、Pandas 管表格处理，从数组创建、矩阵运算、广播机制，到 DataFrame 的查询、分组聚合与 CSV 清洗。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "NumPy",
+        "Pandas",
+        "数据分析"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/numpy-pandas.md"
+    },
+    {
+      "slug": "pymysql",
+      "title": "用 PyMySQL 操作 MySQL",
+      "summary": "在 Python 里连接 MySQL，走通查询、增删改、事务提交回滚，并用参数化查询堵住 SQL 注入这个安全漏洞。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "MySQL",
+      "tags": [
+        "Python",
+        "MySQL",
+        "PyMySQL"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/pymysql.md"
+    },
+    {
+      "slug": "python-closure-decorator",
+      "title": "Python 闭包与装饰器",
+      "summary": "先搞懂闭包为什么能「留住」变量，再理解装饰器就是在闭包上再包一层，最终写出通用的计时、日志装饰器。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "装饰器",
+        "闭包"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-closure-decorator.md"
+    },
+    {
+      "slug": "python-containers",
+      "title": "Python 五大容器与推导式",
+      "summary": "字符串、列表、元组、集合、字典——搞清各自的可变性、有序性与常用操作，再用推导式把循环压缩成一行。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "容器",
+        "入门"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-containers.md"
+    },
+    {
+      "slug": "python-control-flow",
+      "title": "Python 流程控制：分支与循环",
+      "summary": "用 if 做选择、用 while 和 for 做重复，理清分支的四种形态和循环的三要素，让程序不再只会从上往下跑。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "流程控制",
+        "入门"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-control-flow.md"
+    },
+    {
+      "slug": "python-db-connection-pool",
+      "title": "Python 数据库工程实践：连接池、ORM 与批量写入",
+      "summary": "每次查询都新建连接，是把数据库往死里逼。这篇讲清连接池怎么配、SQLAlchemy ORM 怎么用、批量写入怎么提速，以及异步场景下的正确姿势。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "MySQL",
+      "tags": [
+        "Python",
+        "MySQL",
+        "连接池",
+        "SQLAlchemy",
+        "ORM"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-db-connection-pool.md"
+    },
+    {
+      "slug": "python-functions",
+      "title": "Python 函数：从定义到 lambda 与递归",
+      "summary": "把一段逻辑封装成可复用的函数，理清参数、返回值、作用域，再进阶到匿名函数与递归。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "函数",
+        "入门"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-functions.md"
+    },
+    {
+      "slug": "python-oop",
+      "title": "Python 面向对象：类、对象与三大特性",
+      "summary": "用类做模板、对象做实体，搞懂 self 和魔法方法，再吃透封装、继承、多态三大特性。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "面向对象",
+        "进阶"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-oop.md"
+    },
+    {
+      "slug": "python-regex",
+      "title": "Python 正则表达式速查",
+      "summary": "从 match/search/findall 三种匹配方式入手，讲清单字符、量词、分组、贪婪与非贪婪，附提取网页图片地址的实战。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "正则",
+        "爬虫"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-regex.md"
+    },
+    {
+      "slug": "python-syntax-basics",
+      "title": "Python 语法入门：字面量、变量、类型与运算符",
+      "summary": "从字面量和变量起步，理清 Python 的数据类型、类型转换、标识符规范与各类运算符，打好语法地基。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "语法",
+        "入门"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/python-syntax-basics.md"
+    },
+    {
+      "slug": "pytorch-autograd",
+      "title": "自动微分与模型训练五步法",
+      "summary": "loss.backward() 到底做了什么？这篇讲清自动微分的原理、requires_grad 的作用、训练循环的标准五步，并用线性回归案例跑通从数据到模型的完整流程。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "PyTorch",
+        "自动微分",
+        "backward",
+        "训练流程",
+        "DataLoader"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/pytorch-autograd.md"
+    },
+    {
+      "slug": "pytorch-tensor",
+      "title": "PyTorch 张量：创建、运算、索引与形状变换",
+      "summary": "张量是深度学习的通用数据载体。这篇讲清张量的创建方式、点乘与点积的区别、dim 轴到底指什么、reshape/squeeze/transpose 的用法，以及 cat 和 stack 最容易搞混的地方。",
+      "section": "学习笔记",
+      "topic": "模型基础",
+      "subtopic": "机器学习与深度学习",
+      "tags": [
+        "PyTorch",
+        "张量",
+        "深度学习",
+        "张量运算"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/pytorch-tensor.md"
+    },
+    {
+      "slug": "redis-basics",
+      "title": "Redis 入门：数据结构、持久化与事务",
+      "summary": "理解 Redis 为什么快（内存 + 空间换时间），掌握五大数据结构、持久化（RDB/AOF）与事务，以及发布订阅、管道等进阶特性。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "Redis",
+      "tags": [
+        "Redis",
+        "缓存",
+        "数据库"
+      ],
+      "date": "2026-09-06",
+      "published": true,
+      "file": "articles/redis-basics.md"
+    },
+    {
+      "slug": "llm-api-async-streaming",
+      "title": "大模型 API 的异步与流式调用",
+      "summary": "用 asyncio 并发调用大模型 API，把「等待」变成「同时进行」，再用 async generator 加 yield 实现 token 级流式输出。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "asyncio",
+        "流式输出",
+        "LLM"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/llm-api-async-streaming.md"
+    },
+    {
+      "slug": "llm-api-retry-timeout",
+      "title": "大模型 API 的重试、超时与限流",
+      "summary": "用 tenacity 的 @retry 装饰器给大模型调用加指数退避重试，只重试该重试的错误，再补上超时和降级兜底。",
+      "section": "学习笔记",
+      "topic": "LLM 应用",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "tenacity",
+        "重试",
+        "LLM"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/llm-api-retry-timeout.md"
+    },
+    {
+      "slug": "matplotlib-visualization",
+      "title": "Matplotlib 数据可视化",
+      "summary": "掌握绘图的五步流程，解决中文乱码和负号显示，用一个 GDP 折线图案例串起 pandas 读数据到 matplotlib 出图的全过程。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "Matplotlib",
+        "可视化"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/matplotlib-visualization.md"
+    },
+    {
+      "slug": "mysql-index-optimization",
+      "title": "MySQL 索引与慢查询优化：从 EXPLAIN 到索引设计",
+      "summary": "建了索引却还是全表扫描？这篇讲透 EXPLAIN 的五个关键字段、联合索引最左前缀、覆盖索引消灭回表、九种索引失效写法，以及慢查询日志的完整排查链路。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "MySQL",
+      "tags": [
+        "MySQL",
+        "索引",
+        "EXPLAIN",
+        "性能优化"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/mysql-index-optimization.md"
+    },
+    {
+      "slug": "mysql-transaction-lock",
+      "title": "MySQL 事务与锁：隔离级别、MVCC 和死锁排查",
+      "summary": "事务加了 @Transactional 库存还是超卖？这篇从一次真实的扣库存事故出发，讲清四种隔离级别的行为差异、MVCC 快照读的底层原理、行锁与间隙锁的加锁规则，以及死锁的完整排查链路。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "MySQL",
+      "tags": [
+        "MySQL",
+        "事务",
+        "MVCC",
+        "锁",
+        "并发"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/mysql-transaction-lock.md"
+    },
+    {
+      "slug": "python-file-exception",
+      "title": "Python 文件读写与异常处理",
+      "summary": "用 try/except 兜住错误，用 open/with 读写文件，再掌握 os 模块操作文件和文件夹。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "文件",
+        "异常"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/python-file-exception.md"
+    },
+    {
+      "slug": "python-generator-coroutine",
+      "title": "Python 生成器与协程",
+      "summary": "生成器用 yield 实现惰性计算、省内存，协程在它的基础上用 async/await 处理大量 IO 等待，把并发做得轻量。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "生成器",
+        "协程",
+        "asyncio"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/python-generator-coroutine.md"
+    },
+    {
+      "slug": "python-modules-packages",
+      "title": "Python 模块与包：import、__init__.py 与标准库",
+      "summary": "从 import 的四种写法、包的结构与 __init__.py，到 __name__ 程序入口和常用标准库，搞懂 Python 代码是怎么组织、复用的。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "模块",
+        "import",
+        "包管理"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/python-modules-packages.md"
+    },
+    {
+      "slug": "python-multitask",
+      "title": "Python 多进程、多线程与 GIL",
+      "summary": "区分进程与线程的隔离/共享、守护与互斥锁，再讲清 GIL 这个 Python 特有的限制，以及什么时候该用哪种并发。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "多线程",
+        "多进程",
+        "GIL"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/python-multitask.md"
+    },
+    {
+      "slug": "python-socket",
+      "title": "Python 网络编程：Socket 与 TCP/UDP",
+      "summary": "用 socket 写 TCP 和 UDP 的客户端、服务端，理解三次握手、字节流收发，再串联一个「TCP 中转 Ollama」的实战。",
+      "section": "学习笔记",
+      "topic": "Python",
+      "subtopic": "",
+      "tags": [
+        "Python",
+        "Socket",
+        "网络编程"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/python-socket.md"
+    },
+    {
+      "slug": "redis-cache-patterns",
+      "title": "Redis 缓存设计：穿透、击穿、雪崩与分布式锁",
+      "summary": "缓存三大经典问题逐个拆解，从缓存空值、布隆过滤器到分布式锁与 Redlock，给出可直接用的 Python 实现，并补上大模型场景下的响应缓存与限流打法。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "Redis",
+      "tags": [
+        "Redis",
+        "缓存",
+        "分布式锁",
+        "高并发"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/redis-cache-patterns.md"
+    },
+    {
+      "slug": "vector-database-rag",
+      "title": "向量数据库入门：Embedding、HNSW 索引与 RAG 选型",
+      "summary": "为什么关键词检索救不了 RAG？这篇讲清 Embedding 与语义检索的原理、HNSW/IVF 索引的取舍、Chroma/pgvector/Qdrant/Milvus 的选型边界，并给出可直接跑通的代码。",
+      "section": "学习笔记",
+      "topic": "数据与存储",
+      "subtopic": "向量数据库",
+      "tags": [
+        "向量数据库",
+        "RAG",
+        "Embedding",
+        "HNSW",
+        "大模型应用"
+      ],
+      "date": "2026-09-04",
+      "published": true,
+      "file": "articles/vector-database-rag.md"
     }
   ]
 }

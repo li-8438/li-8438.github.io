@@ -31,6 +31,7 @@ export const TAXONOMY = [
         children: [
           { id: "mysql", name: "MySQL" },
           { id: "redis", name: "Redis" },
+          { id: "vector-db", name: "向量数据库" },
         ],
       },
       {
@@ -48,6 +49,15 @@ export const TAXONOMY = [
           { id: "prompt", name: "提示词工程" },
           { id: "rag", name: "RAG" },
           { id: "agent", name: "Agent" },
+        ],
+      },
+      {
+        id: "tooling",
+        name: "工程工具",
+        children: [
+          { id: "git", name: "Git" },
+          { id: "docker", name: "Docker" },
+          { id: "k8s", name: "Kubernetes" },
         ],
       },
     ],

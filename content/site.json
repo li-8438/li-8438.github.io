@@ -1,5 +1,7 @@
 {
   "featured": [
+    "rag-core-pipeline",
+    "docker-to-kubernetes",
     "llm-engineering-guide",
     "fastapi-production-architecture",
     "docker-compose-production",

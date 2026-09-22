@@ -72,7 +72,7 @@ export async function loadSite() {
 /**
  * 按 slug 顺序取出指定的精选文章。
  *
- * 为什么要有这个函数：site.json 里只存了 4 个 slug 字符串，
+ * 为什么要有这个函数：site.json 里只存了若干 slug 字符串，
  * 需要回到目录里换成完整的文章对象才能渲染卡片。
  * 用 Map 做一次索引（slug → 文章）再查，避免对每个 slug 都 find 一遍（O(n²) → O(n)）。
  * filter(Boolean) 会静默丢掉目录里已不存在的 slug —— 写错 slug 不会报错，只是少一张卡片。

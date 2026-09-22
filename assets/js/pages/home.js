@@ -32,7 +32,7 @@ await mountChrome();
 // 解构顺序与数组顺序一一对应：Promise.all 的结果顺序由传入顺序决定，而非完成顺序
 const [catalog, site] = await Promise.all([loadCatalog(), loadSite()]);
 
-// site.featured 是 4 个 slug 字符串，这里换成完整的文章对象，且保持配置的先后顺序
+// site.featured 是若干 slug 字符串，这里换成完整的文章对象，且保持配置的先后顺序
 const featured = featuredArticles(catalog, site.featured || []);
 
 // ── 步骤 3：修正链接（补 BASE_PATH） ──
