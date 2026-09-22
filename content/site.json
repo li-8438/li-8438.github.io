@@ -1,10 +1,8 @@
 {
   "featured": [
     "rag-core-pipeline",
-    "docker-to-kubernetes",
-    "llm-engineering-guide",
-    "fastapi-production-architecture",
     "cloud-deployment-responsibility",
+    "llm-engineering-guide",
     "static-site-github-pages"
   ],
   "now": {
